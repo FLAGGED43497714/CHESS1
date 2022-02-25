@@ -47,7 +47,7 @@ int main()
             coutBoard(board);
 
             double boardEval = eval(board,moveNb);
-            cout << "eval : " << boardEval << endl;
+            cout << "eval : " << boardEval/100 << endl;
 
             //turn
             if (moveNb % 2 == 0){cout << "White";} else {cout << "Black";} cout << " to play" << endl ;
