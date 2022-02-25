@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 //pour test
+#include "boardEval.h"
 #include "Check.h"
 #include <MoveInstructions.h>
 
@@ -31,6 +32,7 @@ int main()
 
     string possibleBoard[8][8];
     vector<pair<string, pair<int, int>>> legalMoves;
+    pair<string, pair<int, int>> theBestMove ;
 
     while(true){
         bool isLegal (false);
@@ -44,7 +46,8 @@ int main()
             system("cls");
             coutBoard(board);
 
-
+            double boardEval = eval(board,moveNb);
+            cout << "eval : " << boardEval << endl;
 
             //turn
             if (moveNb % 2 == 0){cout << "White";} else {cout << "Black";} cout << " to play" << endl ;
@@ -70,10 +73,16 @@ int main()
             } else {
                 //black turn, computer plays
                 legalMoves = LegalMoves(board, moveNb) ;
-                int randint = rand() % legalMoves.size();
+                /*int randint = rand() % legalMoves.size();
                 nextPiece = legalMoves[randint].first ;
                 nextLine = legalMoves[randint].second.first ;
                 nextCol = legalMoves[randint].second.second ;
+                */
+                theBestMove = bestMove(legalMoves,board,moveNb);
+                nextPiece = theBestMove.first ;
+                nextLine = theBestMove.second.first;
+                nextCol = theBestMove.second.second;
+
                 isLegal = true;
             }
 

@@ -42,6 +42,7 @@
 		<Unit filename="include/PawnLegal.h" />
 		<Unit filename="include/RookLegal.h" />
 		<Unit filename="include/UpdateBoard.h" />
+		<Unit filename="include/boardEval.h" />
 		<Unit filename="include/coutBoard.h" />
 		<Unit filename="include/initboard.h" />
 		<Unit filename="include/legal.h" />
@@ -54,6 +55,7 @@
 		<Unit filename="src/PawnLegal.cpp" />
 		<Unit filename="src/RookLegal.cpp" />
 		<Unit filename="src/UpdateBoard.cpp" />
+		<Unit filename="src/boardEval.cpp" />
 		<Unit filename="src/coutBoard.cpp" />
 		<Unit filename="src/initboard.cpp" />
 		<Unit filename="src/legal.cpp" />
