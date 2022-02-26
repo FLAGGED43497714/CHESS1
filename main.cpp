@@ -6,7 +6,7 @@
 #include <legal.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include <math.h>
 //pour test
 #include "boardEval.h"
 #include "Check.h"
@@ -19,7 +19,10 @@ int main()
     int moveNb = 0;
     string board[8][8] ;
 
-    initBoard(board);
+    //string fen = "8/8/8/6r1/k7/4bb2/8/4K3" ;
+    //string fen = "rnbqk1nr/ppp2ppp/8/3pP3/1b6/2N5/PPP1PPPP/R1BQKBNR";
+    string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
+    initFenBoard(board, fen);
     coutBoard(board);
 
     string nextPiece ;
@@ -35,11 +38,13 @@ int main()
     pair<string, pair<int, int>> theBestMove ;
 
     while(true){
+        string nothing ;
+        cin >> nothing ;
         bool isLegal (false);
 
         bool isCheck = IsCheck(board,moveNb) ;
-        cout << "Is check : " << isCheck << endl ;
-        sleep(0.5) ;
+        //cout << "Is check : " << isCheck << endl ;
+        //sleep(0.5) ;
 
         while(!isLegal){
             //update board on console
@@ -53,7 +58,17 @@ int main()
             if (moveNb % 2 == 0){cout << "White";} else {cout << "Black";} cout << " to play" << endl ;
 
             if (moveNb % 2 == 0){
+                //theBestMove = bestMove(legalMoves,board,moveNb);
+
+                theBestMove = bestMove2(board,moveNb);
+                nextPiece = theBestMove.first ;
+                nextLine = theBestMove.second.first;
+                nextCol = theBestMove.second.second;
+
+                isLegal = true ;
+
                 //next move
+                /*
                 cout << "next piece ? " ;
                 cin >> nextPiece;
                 cin.ignore();
@@ -70,6 +85,7 @@ int main()
                 cin.ignore();
 
                 isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
+                */
             } else {
                 //black turn, computer plays
                 legalMoves = LegalMoves(board, moveNb) ;
@@ -78,7 +94,8 @@ int main()
                 nextLine = legalMoves[randint].second.first ;
                 nextCol = legalMoves[randint].second.second ;
                 */
-                theBestMove = bestMove(legalMoves,board,moveNb);
+                //theBestMove = bestMove(legalMoves,board,moveNb);
+                theBestMove = bestMove2(board,moveNb);
                 nextPiece = theBestMove.first ;
                 nextLine = theBestMove.second.first;
                 nextCol = theBestMove.second.second;
@@ -90,10 +107,11 @@ int main()
         }
         if (moveNb % 2 == 0) {
             //create a parallel board to test a move
-            updateBoard1(nextPiece,nextDest, board);
+            //updateBoard1(nextPiece,nextDest, board);
+            updateBoard2(nextPiece, nextLine, nextCol, board) ;
         } else {
             //possible moves
-
+            /*
             for (int k=0 ; k < legalMoves.size() ; k++){
                 for (int i=0; i < 8 ; i++){
                     for (int j=0; j < 8 ; j++){
@@ -105,12 +123,12 @@ int main()
                 coutBoard(possibleBoard) ;
                 sleep(0.5);
             }
+            */
 
             updateBoard2(nextPiece, nextLine, nextCol, board) ;
         }
         system("cls");
         coutBoard(board);
-
         moveNb++;
 
         }

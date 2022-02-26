@@ -130,7 +130,7 @@
 	<string>
 	<iostream>
 
-1645801933 source:c:\users\balth\c++\chesconstest1\chess1\main.cpp
+1645874057 source:c:\users\balth\c++\chesconstest1\chess1\main.cpp
 	<iostream>
 	<string>
 	<coutBoard.h>
@@ -139,6 +139,7 @@
 	<legal.h>
 	<stdlib.h>
 	<unistd.h>
+	<math.h>
 	"boardEval.h"
 	"Check.h"
 	<MoveInstructions.h>
@@ -146,7 +147,7 @@
 1645472178 c:\users\balth\c++\chesconstest1\chess1\include\coutboard.h
 	<string>
 
-1645484263 c:\users\balth\c++\chesconstest1\chess1\include\initboard.h
+1645823179 c:\users\balth\c++\chesconstest1\chess1\include\initboard.h
 	<string>
 
 1645706226 c:\users\balth\c++\chesconstest1\chess1\include\updateboard.h
@@ -174,7 +175,7 @@
 	<string>
 	<vector>
 
-1645785588 source:c:\users\balth\c++\chesconstest1\chess1\src\check.cpp
+1645810336 source:c:\users\balth\c++\chesconstest1\chess1\src\check.cpp
 	"Check.h"
 	"legal.h"
 	"MoveInstructions.h"
@@ -189,9 +190,10 @@
 	<string>
 	<iostream>
 
-1645526796 source:c:\users\balth\c++\chesconstest1\chess1\src\initboard.cpp
+1645824900 source:c:\users\balth\c++\chesconstest1\chess1\src\initboard.cpp
 	"initboard.h"
 	<string>
+	<iostream>
 
 1645784433 source:c:\users\balth\c++\chesconstest1\chess1\src\kinglegal.cpp
 	"KingLegal.h"
@@ -215,7 +217,7 @@
 	<string>
 	<vector>
 
-1645785895 source:c:\users\balth\c++\chesconstest1\chess1\src\legal.cpp
+1645874097 source:c:\users\balth\c++\chesconstest1\chess1\src\legal.cpp
 	"legal.h"
 	"MoveInstructions.h"
 	"Check.h"
@@ -262,14 +264,16 @@
 	<cstring>
 	"MoveInstructions.h"
 
-1645801380 source:c:\users\balth\c++\chesconstest1\chess1\src\boardeval.cpp
+1645871218 source:c:\users\balth\c++\chesconstest1\chess1\src\boardeval.cpp
 	"boardEval.h"
 	"UpdateBoard.h"
+	"legal.h"
 	<iostream>
 	<string>
 	<unistd.h>
+	<cmath>
 
-1645792579 c:\users\balth\c++\chesconstest1\chess1\include\boardeval.h
+1645808463 c:\users\balth\c++\chesconstest1\chess1\include\boardeval.h
 	<string>
 	<vector>
 

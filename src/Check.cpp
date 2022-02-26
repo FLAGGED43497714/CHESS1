@@ -37,7 +37,6 @@ bool IsCheck(string aBoard[8][8], int moveNb){
         if ((legalOppMoves[i].second.first == allyKingCoord.first)
         &&(legalOppMoves[i].second.second == allyKingCoord.second))
         {
-            cout << "King checked by " << legalOppMoves[i].first << endl;
             isCheck = true;
         }
     }

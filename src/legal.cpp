@@ -166,9 +166,7 @@ vector<pair<string, pair<int, int>>> RawLegalMoves(string aBoard[8][8], int move
                     legalKing2(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy);
                 }
 
-            }else{
-                cout << "Piece :" << currentPiece << "not on board"<< endl;
-                }
+            }
 
     k+=1 ;
     }
@@ -209,7 +207,7 @@ bool IsLegal(string nextPiece, string nextDest, string aBoard[8][8], int moveNb)
 
     if (!found){
         cout << "illegal move" <<endl;
-        sleep(2);
+        //sleep(2);
         return false;
     }
 
