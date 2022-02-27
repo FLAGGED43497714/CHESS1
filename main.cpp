@@ -21,6 +21,8 @@ int main()
 
     //string fen = "8/8/8/6r1/k7/4bb2/8/4K3" ;
     //string fen = "rnbqk1nr/ppp2ppp/8/3pP3/1b6/2N5/PPP1PPPP/R1BQKBNR";
+    //string fen = "r1bqk1nr/pppp2pp/5p2/3Pn3/1b6/4B2N/PPP1KPPP/RN1Q1B1R";
+    //string fen = "r1b3kr/pppp1ppp/3b1q2/3Pp3/1nB1P1n1/2N5/PPPB1PPP/R2QNK1R" ;
     string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
     initFenBoard(board, fen);
     coutBoard(board);
@@ -38,8 +40,8 @@ int main()
     pair<string, pair<int, int>> theBestMove ;
 
     while(true){
-        string nothing ;
-        cin >> nothing ;
+        //string nothing ;
+        //cin >> nothing ;
         bool isLegal (false);
 
         bool isCheck = IsCheck(board,moveNb) ;
@@ -95,12 +97,36 @@ int main()
                 nextCol = legalMoves[randint].second.second ;
                 */
                 //theBestMove = bestMove(legalMoves,board,moveNb);
-                theBestMove = bestMove2(board,moveNb);
+
+
+                theBestMove = bestMove3(board,moveNb,3);
                 nextPiece = theBestMove.first ;
                 nextLine = theBestMove.second.first;
                 nextCol = theBestMove.second.second;
 
                 isLegal = true;
+
+                /*
+                //next move
+
+                cout << "next piece ? " ;
+                cin >> nextPiece;
+                cin.ignore();
+
+                //pos of next piece
+                pair<int,int> pLoc ;
+                pLoc = findPiece(nextPiece,board);
+                cout << pLoc.first << endl;
+                cout << pLoc.second << endl;
+
+                //ask dest
+                cout << "Destination ? " ;
+                cin >> nextDest;
+                cin.ignore();
+
+                isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
+                */
+
             }
 
 
@@ -124,7 +150,7 @@ int main()
                 sleep(0.5);
             }
             */
-
+            //updateBoard1(nextPiece,nextDest, board);
             updateBoard2(nextPiece, nextLine, nextCol, board) ;
         }
         system("cls");

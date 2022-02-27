@@ -206,8 +206,8 @@ bool IsLegal(string nextPiece, string nextDest, string aBoard[8][8], int moveNb)
     }
 
     if (!found){
-        cout << "illegal move" <<endl;
-        //sleep(2);
+        cout << "illegal move *" <<endl;
+        sleep(2);
         return false;
     }
 

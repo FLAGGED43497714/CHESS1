@@ -107,6 +107,7 @@ void legalPawn(string currentPiece,pair<int,int> locCurrentPiece,
         if((locTMP.first +1 < 8)
         && (aBoard[locTMP.first+1][locTMP.second][0] == '*'))
         {
+            //cout << "got here" << endl;
             //new loc
             pair<int,int> possibleNewLoc ;
             possibleNewLoc.first = locTMP.first+1 ;
@@ -171,7 +172,7 @@ void legalPawn(string currentPiece,pair<int,int> locCurrentPiece,
         {
             //new loc
             pair<int,int> possibleNewLoc ;
-            possibleNewLoc.first = locTMP.first-1 ;
+            possibleNewLoc.first = locTMP.first+1 ;
             possibleNewLoc.second = locTMP.second-1;
 
             //new move
