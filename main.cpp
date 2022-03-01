@@ -7,23 +7,26 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
+
+#include <chrono>
+
+
 //pour test
 #include "boardEval.h"
 #include "Check.h"
 #include <MoveInstructions.h>
 
+//using namespace std::chrono ;
+
 using namespace std;
 
 int main()
 {
-    int moveNb = 0;
+    int moveNb = 0 ;
     string board[8][8] ;
 
-    //string fen = "8/8/8/6r1/k7/4bb2/8/4K3" ;
-    //string fen = "rnbqk1nr/ppp2ppp/8/3pP3/1b6/2N5/PPP1PPPP/R1BQKBNR";
-    //string fen = "r1bqk1nr/pppp2pp/5p2/3Pn3/1b6/4B2N/PPP1KPPP/RN1Q1B1R";
-    //string fen = "r1b3kr/pppp1ppp/3b1q2/3Pp3/1nB1P1n1/2N5/PPPB1PPP/R2QNK1R" ;
-    string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
+    string fen = "rnbqkb1r/ppp1pppp/5n2/3p4/3P4/2N5/PPP1PPPP/R1BQKBNR" ;
+    //string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
     initFenBoard(board, fen);
     coutBoard(board);
 
@@ -62,15 +65,23 @@ int main()
             if (moveNb % 2 == 0){
                 //theBestMove = bestMove(legalMoves,board,moveNb);
 
-                theBestMove = bestMove2(board,moveNb);
+
+                //auto start = high_resolution_clock::now();
+                theBestMove = bestMove4(board,moveNb,2);
+                //auto stop = high_resolution_clock::now();
+                //auto duration = duration_cast<milliseconds>(stop - start);
+                //cout << duration.count() << endl;
+                //sleep(3);
                 nextPiece = theBestMove.first ;
                 nextLine = theBestMove.second.first;
                 nextCol = theBestMove.second.second;
 
                 isLegal = true ;
 
-                //next move
+
                 /*
+                //next move
+
                 cout << "next piece ? " ;
                 cin >> nextPiece;
                 cin.ignore();
@@ -98,15 +109,15 @@ int main()
                 */
                 //theBestMove = bestMove(legalMoves,board,moveNb);
 
-
-                theBestMove = bestMove3(board,moveNb,3);
+                /*
+                theBestMove = bestMove4(board,moveNb,3);
                 nextPiece = theBestMove.first ;
                 nextLine = theBestMove.second.first;
                 nextCol = theBestMove.second.second;
 
                 isLegal = true;
+                */
 
-                /*
                 //next move
 
                 cout << "next piece ? " ;
@@ -125,7 +136,7 @@ int main()
                 cin.ignore();
 
                 isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
-                */
+
 
             }
 
@@ -150,8 +161,8 @@ int main()
                 sleep(0.5);
             }
             */
-            //updateBoard1(nextPiece,nextDest, board);
-            updateBoard2(nextPiece, nextLine, nextCol, board) ;
+            updateBoard1(nextPiece,nextDest, board);
+            //updateBoard2(nextPiece, nextLine, nextCol, board) ;
         }
         system("cls");
         coutBoard(board);

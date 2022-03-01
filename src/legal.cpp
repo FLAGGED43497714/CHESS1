@@ -28,13 +28,13 @@ bool RightColor(string aPiece, int moveNb){
 }
 
 
-vector<pair<string, pair<int, int>>> LegalMoves(string aBoard[8][8], int moveNb){
+vector<pair<string, pair<int, int>>> LegalMoves(string aBoard[8][8], int moveNb){//, bool wC1, bool wC2, bool bC1, bool bC2){
 
     vector<pair<string, pair<int, int>>> legalMoves ;
     bool isWhiteTurn = (moveNb % 2 == 0) ;
-    string pieces[32] = {"wP0","wP1","wP2","wP3","wP4","wP5","wP6","wP7",
+    string pieces[32] = {"wP1","wP2","wP3","wP4","wP5","wP6","wP7","wP8",
                          "wR1","wN1","wB1","wK","wQ","wB2","wN2","wR2",
-                         "bP0","bP1","bP2","bP3","bP4","bP5","bP6","bP7",
+                         "bP1","bP2","bP3","bP4","bP5","bP6","bP7","bP8",
                          "bR1","bN1","bB1","bK","bQ","bB2","bN2","bR2"};
 
     //cout << "Pieces analysed to see all legal moves :" << endl;
@@ -79,6 +79,7 @@ vector<pair<string, pair<int, int>>> LegalMoves(string aBoard[8][8], int moveNb)
 
                 //Pawn
                 if (currentPiece[1] == 'P'){
+
                     legalPawn(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy, moveNb);
                 }
 
@@ -172,6 +173,14 @@ vector<pair<string, pair<int, int>>> RawLegalMoves(string aBoard[8][8], int move
     }
 
     return legalMoves;
+}
+
+vector<pair<string, pair<int, int>>> sortLegal(vector<pair<string, pair<int, int>>> legalMoves){
+    double moveScoreGuesses[legalMoves.size()] ;
+    for (int k =0 ; k < legalMoves.size() ; k++){
+
+    }
+
 }
 
 

@@ -12,4 +12,8 @@ std::pair<std::string, std::pair<int, int>> bestMove2(std::string aBoard[8][8],i
 
 std::pair<std::string, std::pair<int, int>> bestMove3(std::string aBoard[8][8],int moveNb, int maxIter);
 
+std::pair<std::string, std::pair<int, int>> bestMove4(std::string aBoard[8][8],int moveNb, int maxIter);
+
+std::pair<std::string, std::pair<int, int>> bestMove5(std::string aBoard[8][8],int moveNb, int maxIter);
+
 #endif // BOARDEVAL_H

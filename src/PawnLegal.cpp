@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <unistd.h>
 
 using namespace std;
 
@@ -59,6 +60,7 @@ void legalPawn(string currentPiece,pair<int,int> locCurrentPiece,
         }
 
         //take right
+        //cout << "treating : " << currentPiece << "  " ;
         locTMP.first = locCurrentPiece.first ;
         locTMP.second = locCurrentPiece.second ;
         if((locTMP.first -1 >= 0 ) && (locTMP.second +1 < 8)
@@ -162,6 +164,7 @@ void legalPawn(string currentPiece,pair<int,int> locCurrentPiece,
             if (!MoveChecksAllyKing(aBoard,moveNb,currentPiece,possibleNewLoc)){
                 legalMoves.push_back(newLegalMove);
             }
+
         }
 
         //take left
