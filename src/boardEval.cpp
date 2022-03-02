@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <cmath>
 #include <coutBoard.h>
+#include <Check.h>
 
 using namespace std;
 
@@ -135,8 +136,8 @@ const double QueenSqTbW[8][8] =
 {-20,-10,-10, -5, -5,-10,-10,-20},
 {-10,  0,  0,  0,  0,  0,  0,-10},
 {-10,  0,  5,  5,  5,  5,  0,-10},
-{-5,  0,  5,  5,  5,  5,  0, -5},
-{0,  0,  5,  5,  5,  5,  0, -5},
+{ -5,  0,  5,  5,  5,  5,  0, -5},
+{ 0,  0,  5,  5,  5,  5,  0, -5},
 {-10,  5,  5,  5,  5,  5,  0,-10},
 {-10,  0,  5,  0,  0,  0,  0,-10},
 {-20,-10,-10, -5, -5,-10,-10,-20}
@@ -306,7 +307,21 @@ double EvalSqPcTable(string aBoard[8][8], int moveNb){
     return eval ;
 }
 
+double evalMoveSz(string aBoard[8][8],int moveNb){
+    bool isWhiteTurn = (moveNb % 2 == 0) ;
 
+    double weight = 5 ;
+
+    int moveSzThis = unSortedLegalMoves(aBoard, moveNb).size() ;
+    int moveSzNext = unSortedLegalMoves(aBoard, moveNb+1).size() ;
+
+    if (isWhiteTurn){
+        return ( moveSzThis - moveSzNext ) * weight ;
+    } else {
+        return ( moveSzNext - moveSzThis ) * weight ;
+    }
+
+}
 
 
 double eval(string aBoard[8][8],int moveNb)
@@ -321,7 +336,13 @@ double eval(string aBoard[8][8],int moveNb)
     //cout << "total eval is " << theEval << endl;
     double evalMate = evalMated(aBoard,moveNb) ;
 
+
     theEval += evalMate ;
+
+    double theEvalMoveSz = evalMoveSz(aBoard,moveNb) ;
+
+    theEval += theEvalMoveSz ;
+
     theEval = floor(theEval);
 
     return theEval ;
@@ -679,6 +700,8 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
     //cout << "entering new layer with " << endl;
     //cout << "iter = " << iter << " max iter = " << maxIter << "moveNb = " << moveNb << endl ;
     //coutBoard(aBoard) ;
+    //string nothing ;
+    //cin >> nothing ;
     //cout << endl;
 
     bool isWhiteTurn = (moveNb % 2 == 0) ;
@@ -733,20 +756,23 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
 
 
         if ((possibleBoard[legalMovest0[k].second.first][legalMovest0[k].second.second][0] == colorEnnemy)
-            && (iter == maxIter)
+            //&& (iter == maxIter)
             && (maxIter < veryMaxIter)){
-            //cout << "last move is " << legalMovest0[k].first << legalMovest0[k].second.first << legalMovest0[k].second.second ;
-            //cout << "so we increment" << endl;
-            //string nothing ;
-            //cin >> nothing ;
             incremented = true ;
             maxIter+=1 ;
-            //cout << "maxIter +1"<< endl;
-            //cout << "for " << legalMovest0[k].first << legalMovest0[k].second.first << legalMovest0[k].second.second << endl ;
-            //sleep(5);
         }
 
+
+
         updateBoard2(legalMovest0[k].first,legalMovest0[k].second.first,legalMovest0[k].second.second,possibleBoard);
+
+        if (IsCheck(possibleBoard,moveNb)
+            //&& (iter == maxIter)
+            && (maxIter < veryMaxIter)){
+            incremented = true ;
+            maxIter+=1 ;
+        }
+
 
         //bestInd = subBestMove3(possibleBoard,moveNb+1, maxIter, iter+1) ;
         if (iter == maxIter){
@@ -804,6 +830,7 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
     bestMoveEval.first = bestInd ;
     bestMoveEval.second = bestEval ;
 
+
     return bestMoveEval;
 }
 
@@ -847,6 +874,16 @@ pair<string, pair<int, int>> bestMove4(string aBoard[8][8],int moveNb,int maxIte
 }
 
 pair<string, pair<int, int>> bestMove5(string aBoard[8][8],int moveNb,int maxIter){
+
+
+    if (moveNb == 0) {
+        pair<string, pair<int, int>> bestmove ;
+        bestmove.first = "wP5" ;
+        bestmove.second.first = 4 ;
+        bestmove.second.second = 4 ;
+        return bestmove ;
+
+    }
 
     vector<pair<string, pair<int, int>>> legalMovest0 ;
     legalMovest0 = LegalMoves(aBoard,moveNb) ;

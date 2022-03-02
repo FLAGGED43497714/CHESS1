@@ -16,7 +16,7 @@
 #include "Check.h"
 #include <MoveInstructions.h>
 
-//using namespace std::chrono ;
+using namespace std::chrono ;
 
 using namespace std;
 
@@ -25,8 +25,8 @@ int main()
     int moveNb = 0 ;
     string board[8][8] ;
 
-    string fen = "rnbqkb1r/ppp1pppp/5n2/3p4/3P4/2N5/PPP1PPPP/R1BQKBNR" ;
-    //string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
+    //string fen = "r1bqkbnr/ppp1pppp/2n5/3p4/3P4/2N5/PPP1PPPP/R1BQKBNR";
+    string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
     initFenBoard(board, fen);
     coutBoard(board);
 
@@ -57,7 +57,7 @@ int main()
             coutBoard(board);
 
             double boardEval = eval(board,moveNb);
-            cout << "eval : " << boardEval/100 << endl;
+            cout << "eval t0 : " << boardEval/100 << endl;
 
             //turn
             if (moveNb % 2 == 0){cout << "White";} else {cout << "Black";} cout << " to play" << endl ;
@@ -65,9 +65,57 @@ int main()
             if (moveNb % 2 == 0){
                 //theBestMove = bestMove(legalMoves,board,moveNb);
 
+                /*
+                auto start = high_resolution_clock::now();
+                theBestMove = bestMove5(board,moveNb,2);
+                auto stop = high_resolution_clock::now();
+                auto duration = duration_cast<milliseconds>(stop - start);
+                cout << duration.count() << endl;
+                //sleep(3);
+
+                nextPiece = theBestMove.first ;
+                nextLine = theBestMove.second.first;
+                nextCol = theBestMove.second.second;
+
+                isLegal = true ;
+
+                */
+
+
+                //next move
+
+                cout << "next piece ? " ;
+                cin >> nextPiece;
+                cin.ignore();
+
+                //pos of next piece
+                pair<int,int> pLoc ;
+                pLoc = findPiece(nextPiece,board);
+                cout << pLoc.first << endl;
+                cout << pLoc.second << endl;
+
+                //ask dest
+                cout << "Destination ? " ;
+                cin >> nextDest;
+                cin.ignore();
+
+                isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
+
+
+
+            } else {
+                //black turn, computer plays
+                //legalMoves = LegalMoves(board, moveNb) ;
+                /*int randint = rand() % legalMoves.size();
+                nextPiece = legalMoves[randint].first ;
+                nextLine = legalMoves[randint].second.first ;
+                nextCol = legalMoves[randint].second.second ;
+                */
+                //theBestMove = bestMove(legalMoves,board,moveNb);
+
 
                 //auto start = high_resolution_clock::now();
-                theBestMove = bestMove4(board,moveNb,2);
+                theBestMove = bestMove5(board,moveNb,2);
                 //auto stop = high_resolution_clock::now();
                 //auto duration = duration_cast<milliseconds>(stop - start);
                 //cout << duration.count() << endl;
@@ -76,50 +124,12 @@ int main()
                 nextLine = theBestMove.second.first;
                 nextCol = theBestMove.second.second;
 
-                isLegal = true ;
-
-
-                /*
-                //next move
-
-                cout << "next piece ? " ;
-                cin >> nextPiece;
-                cin.ignore();
-
-                //pos of next piece
-                pair<int,int> pLoc ;
-                pLoc = findPiece(nextPiece,board);
-                cout << pLoc.first << endl;
-                cout << pLoc.second << endl;
-
-                //ask dest
-                cout << "Destination ? " ;
-                cin >> nextDest;
-                cin.ignore();
-
-                isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
-                */
-            } else {
-                //black turn, computer plays
-                legalMoves = LegalMoves(board, moveNb) ;
-                /*int randint = rand() % legalMoves.size();
-                nextPiece = legalMoves[randint].first ;
-                nextLine = legalMoves[randint].second.first ;
-                nextCol = legalMoves[randint].second.second ;
-                */
-                //theBestMove = bestMove(legalMoves,board,moveNb);
-
-                /*
-                theBestMove = bestMove4(board,moveNb,3);
-                nextPiece = theBestMove.first ;
-                nextLine = theBestMove.second.first;
-                nextCol = theBestMove.second.second;
-
                 isLegal = true;
-                */
+
+
 
                 //next move
-
+                /*
                 cout << "next piece ? " ;
                 cin >> nextPiece;
                 cin.ignore();
@@ -136,6 +146,7 @@ int main()
                 cin.ignore();
 
                 isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
+                */
 
 
             }
@@ -143,29 +154,15 @@ int main()
 
         }
         if (moveNb % 2 == 0) {
-            //create a parallel board to test a move
-            //updateBoard1(nextPiece,nextDest, board);
-            updateBoard2(nextPiece, nextLine, nextCol, board) ;
-        } else {
-            //possible moves
-            /*
-            for (int k=0 ; k < legalMoves.size() ; k++){
-                for (int i=0; i < 8 ; i++){
-                    for (int j=0; j < 8 ; j++){
-                        possibleBoard[i][j] = board[i][j] ;
-                    }
-                }
-                system("cls");
-                updateBoard2(legalMoves[k].first,legalMoves[k].second.first,legalMoves[k].second.second,possibleBoard);
-                coutBoard(possibleBoard) ;
-                sleep(0.5);
-            }
-            */
             updateBoard1(nextPiece,nextDest, board);
             //updateBoard2(nextPiece, nextLine, nextCol, board) ;
+        } else {
+            //updateBoard1(nextPiece,nextDest, board);
+            updateBoard2(nextPiece, nextLine, nextCol, board) ;
         }
         system("cls");
         coutBoard(board);
+        //sleep(10);
         moveNb++;
 
         }
