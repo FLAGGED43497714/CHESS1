@@ -130,7 +130,7 @@
 	<string>
 	<iostream>
 
-1646324464 source:c:\users\balth\c++\chesconstest1\chess1\main.cpp
+1646327383 source:c:\users\balth\c++\chesconstest1\chess1\main.cpp
 	<iostream>
 	<string>
 	<coutBoard.h>
@@ -268,7 +268,7 @@
 	<cstring>
 	"MoveInstructions.h"
 
-1646324681 source:c:\users\balth\c++\chesconstest1\chess1\src\boardeval.cpp
+1646328103 source:c:\users\balth\c++\chesconstest1\chess1\src\boardeval.cpp
 	"boardEval.h"
 	"UpdateBoard.h"
 	"legal.h"

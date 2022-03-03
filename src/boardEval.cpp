@@ -697,9 +697,10 @@ pair<int, double> subBestMove4(string aBoard[8][8],int moveNb, int maxIter, int 
 }
 
 pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, double alpha = -9000, double beta = 9000,
-                                int iter = 1, int veryMaxIter = 7){
+                                int iter = 1, int veryMaxIter = 9){
     //cout << "entering new layer with " << endl;
     //cout << "iter = " << iter << " max iter = " << maxIter << "moveNb = " << moveNb << endl ;
+    //system("cls");
     //coutBoard(aBoard) ;
     //string nothing ;
     //cin >> nothing ;
@@ -761,7 +762,7 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
         if (destSq[0] == colorEnnemy){
             //cout << destSq ;
             if ((getPieceValue(yourPiece[1]) > getPieceValue(destSq[1]))
-            //&& (iter == maxIter)
+            && (iter == maxIter-1)
             && (maxIter < veryMaxIter)){
             incremented = true ;
             maxIter+=1 ;
@@ -773,7 +774,7 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
         updateBoard2(legalMovest0[k].first,legalMovest0[k].second.first,legalMovest0[k].second.second,possibleBoard);
 
         if (IsCheck(possibleBoard,moveNb)
-            //&& (iter == maxIter)
+            && (iter == maxIter-1)
             && (maxIter < veryMaxIter)
             &&(!incremented)){
             incremented = true ;

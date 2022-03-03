@@ -25,7 +25,7 @@ int main()
     int moveNb = 0 ;
     string board[8][8] ;
 
-    //string fen = "r1b1kb1r/ppp2ppp/2p5/4N3/4n2q/5PP1/PPPP3P/RNBQK2R";
+    //string fen = "r1bqkbnr/pppp1ppp/8/1B2p3/1n2P3/2P2N2/PP1P1PPP/RNBQK2R";
     string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
     initFenBoard(board, fen);
     coutBoard(board);
@@ -65,7 +65,7 @@ int main()
             if (moveNb % 2 == 0){
                 //theBestMove = bestMove(legalMoves,board,moveNb);
 
-
+                /*
                 auto start = high_resolution_clock::now();
                 theBestMove = bestMove5(board,moveNb,2);
                 auto stop = high_resolution_clock::now();
@@ -78,10 +78,11 @@ int main()
                 nextCol = theBestMove.second.second;
 
                 isLegal = true ;
+                */
 
 
 
-                /*
+
                 //next move
 
                 cout << "next piece ? " ;
@@ -100,7 +101,7 @@ int main()
                 cin.ignore();
 
                 isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
-                */
+
 
 
 
@@ -113,6 +114,7 @@ int main()
                 nextCol = legalMoves[randint].second.second ;
                 */
                 //theBestMove = bestMove(legalMoves,board,moveNb);
+
 
 
                 //auto start = high_resolution_clock::now();
@@ -130,6 +132,7 @@ int main()
 
 
 
+                /*
 
                 //next move
 
@@ -149,6 +152,7 @@ int main()
                 cin.ignore();
 
                 isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
+                */
 
 
 
@@ -159,11 +163,11 @@ int main()
 
         }
         if (moveNb % 2 == 0) {
-            //updateBoard1(nextPiece,nextDest, board);
-            updateBoard2(nextPiece, nextLine, nextCol, board) ;
-        } else {
             updateBoard1(nextPiece,nextDest, board);
             //updateBoard2(nextPiece, nextLine, nextCol, board) ;
+        } else {
+            //updateBoard1(nextPiece,nextDest, board);
+            updateBoard2(nextPiece, nextLine, nextCol, board) ;
         }
         system("cls");
         coutBoard(board);
