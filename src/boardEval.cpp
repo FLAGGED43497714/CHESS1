@@ -1,6 +1,7 @@
 #include "boardEval.h"
 #include "UpdateBoard.h"
 #include "legal.h"
+#include "PieceValue.h"
 
 #include <iostream>
 #include <string>
@@ -64,7 +65,7 @@ const double BishopSqTbW[8][8] =
     {-10,  0,  5, 10, 10,  5,  0,-10},
     {-10,  5,  5, 10, 10,  5,  5,-10},
     {-10,  0, 10, 10, 10, 10,  0,-10},
-    {-10, 10, 10, 10, 10, 10, 10,-10},
+    {-10, 10, 10,-20,-20, 10, 10,-10},
     {-10,  5,  0,  0,  0,  0,  5,-10},
     {-20,-10,-40,-10,-10,-40,-10,-20}
 };
@@ -73,7 +74,7 @@ const double BishopSqTbB[8][8] =
 {
     {-20,-10,-40,-10,-10,-40,-10,-20},
     {-10,  5,  0,  0,  0,  0,  5,-10},
-    {-10, 10, 10, 10, 10, 10, 10,-10},
+    {-10, 10, 10,  -20,  -20, 10, 10,-10},
     {-10,  0, 10, 10, 10, 10,  0,-10},
     {-10,  5,  5, 10, 10,  5,  5,-10},
     {-10,  0,  5, 10, 10,  5,  0,-10},
@@ -136,7 +137,7 @@ const double QueenSqTbW[8][8] =
 {-20,-10,-10, -5, -5,-10,-10,-20},
 {-10,  0,  0,  0,  0,  0,  0,-10},
 {-10,  0,  5,  5,  5,  5,  0,-10},
-{ -5,  0,  5,  5,  5,  5,  0, -5},
+{ -5,  0,  5,  5,  5,  5,  0, 0},
 { 0,  0,  5,  5,  5,  5,  0, -5},
 {-10,  5,  5,  5,  5,  5,  0,-10},
 {-10,  0,  5,  0,  0,  0,  0,-10},
@@ -149,7 +150,7 @@ const double QueenSqTbB[8][8] =
 {-10,  0,  5,  0,  0,  0,  0,-10},
 {-10,  5,  5,  5,  5,  5,  0,-10},
 {  0,  0,  5,  5,  5,  5,  0, -5},
-{-5,  0,  5,  5,  5,  5,  0, -5},
+{-5,  0,  5,  5,  5,  5,  0, 0},
 {-10,  0,  5,  5,  5,  5,  0,-10},
 {-10,  0,  0,  0,  0,  0,  0,-10},
 {-20,-10,-10, -5, -5,-10,-10,-20}
@@ -310,7 +311,7 @@ double EvalSqPcTable(string aBoard[8][8], int moveNb){
 double evalMoveSz(string aBoard[8][8],int moveNb){
     bool isWhiteTurn = (moveNb % 2 == 0) ;
 
-    double weight = 5 ;
+    double weight = 1 ;
 
     int moveSzThis = unSortedLegalMoves(aBoard, moveNb).size() ;
     int moveSzNext = unSortedLegalMoves(aBoard, moveNb+1).size() ;
@@ -696,7 +697,7 @@ pair<int, double> subBestMove4(string aBoard[8][8],int moveNb, int maxIter, int 
 }
 
 pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, double alpha = -9000, double beta = 9000,
-                                int iter = 1, int veryMaxIter = 6){
+                                int iter = 1, int veryMaxIter = 7){
     //cout << "entering new layer with " << endl;
     //cout << "iter = " << iter << " max iter = " << maxIter << "moveNb = " << moveNb << endl ;
     //coutBoard(aBoard) ;
@@ -754,12 +755,17 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
         }
         //new Board
 
+        string yourPiece = legalMovest0[k].first ;
+        string destSq = possibleBoard[legalMovest0[k].second.first][legalMovest0[k].second.second] ;
 
-        if ((possibleBoard[legalMovest0[k].second.first][legalMovest0[k].second.second][0] == colorEnnemy)
+        if (destSq[0] == colorEnnemy){
+            //cout << destSq ;
+            if ((getPieceValue(yourPiece[1]) > getPieceValue(destSq[1]))
             //&& (iter == maxIter)
             && (maxIter < veryMaxIter)){
             incremented = true ;
             maxIter+=1 ;
+            }
         }
 
 
@@ -768,7 +774,8 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
 
         if (IsCheck(possibleBoard,moveNb)
             //&& (iter == maxIter)
-            && (maxIter < veryMaxIter)){
+            && (maxIter < veryMaxIter)
+            &&(!incremented)){
             incremented = true ;
             maxIter+=1 ;
         }

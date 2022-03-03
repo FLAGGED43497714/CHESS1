@@ -352,7 +352,7 @@ void legalKing2(string currentPiece,pair<int,int> locCurrentPiece,
 
     //castle short
     if (moveNb % 2 == 0) {
-        if (wC2) {
+        if (K) {
             if (aBoard[7][4] == "wK" && aBoard[7][5] == "*" && aBoard[7][6] == "*" &&  (aBoard[7][7] == "wR2")){
                 //new loc
                 pair<int,int> possibleNewLoc ;
@@ -368,7 +368,7 @@ void legalKing2(string currentPiece,pair<int,int> locCurrentPiece,
             }
         }
     } else {
-        if (bC2) {
+        if (k) {
             if (aBoard[0][4] == "bK" && aBoard[0][5] == "*" && aBoard[0][6] == "*" &&  (aBoard[0][7] == "bR2")){
                 //new loc
                 pair<int,int> possibleNewLoc ;
@@ -387,7 +387,7 @@ void legalKing2(string currentPiece,pair<int,int> locCurrentPiece,
     //castle long
 
     if (moveNb % 2 == 0) {
-        if (wC1) {
+        if (Q) {
             if ((aBoard[7][0] == "wR1") && (aBoard[7][4] == "*") && (aBoard[7][4] == "*") && (aBoard[7][4] == "*") && (aBoard[7][4] == "wK")){
                 //new loc
                 pair<int,int> possibleNewLoc ;
@@ -403,7 +403,7 @@ void legalKing2(string currentPiece,pair<int,int> locCurrentPiece,
             }
         }
     } else {
-        if (bC1) {
+        if (q) {
             if ((aBoard[0][0] == "bR1") && (aBoard[0][1] == "*") && (aBoard[0][2] == "*") && (aBoard[0][3] == "*") && (aBoard[0][4] == "bK")){
                 //new loc
                 pair<int,int> possibleNewLoc ;

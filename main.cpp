@@ -25,7 +25,7 @@ int main()
     int moveNb = 0 ;
     string board[8][8] ;
 
-    //string fen = "r1bqkbnr/ppp1pppp/2n5/3p4/3P4/2N5/PPP1PPPP/R1BQKBNR";
+    //string fen = "r1b1kb1r/ppp2ppp/2p5/4N3/4n2q/5PP1/PPPP3P/RNBQK2R";
     string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
     initFenBoard(board, fen);
     coutBoard(board);
@@ -65,7 +65,7 @@ int main()
             if (moveNb % 2 == 0){
                 //theBestMove = bestMove(legalMoves,board,moveNb);
 
-                /*
+
                 auto start = high_resolution_clock::now();
                 theBestMove = bestMove5(board,moveNb,2);
                 auto stop = high_resolution_clock::now();
@@ -79,9 +79,9 @@ int main()
 
                 isLegal = true ;
 
-                */
 
 
+                /*
                 //next move
 
                 cout << "next piece ? " ;
@@ -100,6 +100,7 @@ int main()
                 cin.ignore();
 
                 isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
+                */
 
 
 
@@ -128,8 +129,10 @@ int main()
 
 
 
+
+
                 //next move
-                /*
+
                 cout << "next piece ? " ;
                 cin >> nextPiece;
                 cin.ignore();
@@ -146,7 +149,9 @@ int main()
                 cin.ignore();
 
                 isLegal = IsLegal(nextPiece, nextDest, board, moveNb) ;
-                */
+
+
+
 
 
             }
@@ -154,11 +159,11 @@ int main()
 
         }
         if (moveNb % 2 == 0) {
-            updateBoard1(nextPiece,nextDest, board);
-            //updateBoard2(nextPiece, nextLine, nextCol, board) ;
-        } else {
             //updateBoard1(nextPiece,nextDest, board);
             updateBoard2(nextPiece, nextLine, nextCol, board) ;
+        } else {
+            updateBoard1(nextPiece,nextDest, board);
+            //updateBoard2(nextPiece, nextLine, nextCol, board) ;
         }
         system("cls");
         coutBoard(board);

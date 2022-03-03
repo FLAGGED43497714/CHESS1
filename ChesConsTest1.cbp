@@ -40,6 +40,7 @@
 		<Unit filename="include/KnightLegal.h" />
 		<Unit filename="include/MoveInstructions.h" />
 		<Unit filename="include/PawnLegal.h" />
+		<Unit filename="include/PieceValue.h" />
 		<Unit filename="include/RookLegal.h" />
 		<Unit filename="include/UpdateBoard.h" />
 		<Unit filename="include/boardEval.h" />
@@ -53,6 +54,7 @@
 		<Unit filename="src/KnightLegal.cpp" />
 		<Unit filename="src/MoveInstructions.cpp" />
 		<Unit filename="src/PawnLegal.cpp" />
+		<Unit filename="src/PieceValue.cpp" />
 		<Unit filename="src/RookLegal.cpp" />
 		<Unit filename="src/UpdateBoard.cpp" />
 		<Unit filename="src/boardEval.cpp" />

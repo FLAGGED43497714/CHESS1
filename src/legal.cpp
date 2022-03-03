@@ -7,6 +7,7 @@
 #include "KnightLegal.h"
 #include "PawnLegal.h"
 #include "KingLegal.h"
+#include "PieceValue.h"
 
 #include <string>
 #include <iostream>
@@ -431,33 +432,6 @@ vector<pair<string, pair<int, int>>> RawLegalMoves(string aBoard[8][8], int move
     }
 
     return legalMoves;
-}
-
-int getPieceValue(char label){
-    switch (label)
-    {
-
-    case 'Q' :
-        return 900 ;
-        break ;
-
-    case 'R' :
-        return 500 ;
-        break ;
-
-    case 'B' :
-        return 300 ;
-        break ;
-
-    case 'N' :
-        return 300 ;
-        break ;
-
-    case 'P' :
-        return 100 ;
-        break ;
-
-    }
 }
 
 
