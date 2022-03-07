@@ -20,6 +20,9 @@ using namespace std ;
 int getPieceValue(char label) ;
 
 bool PieceOnBoard(string aPiece, string aBoard[8][8]){
+    if ((aPiece == "O-O")||(aPiece == "O-O-O")||(aPiece == "o-o")||(aPiece == "o-o-o")){
+        return true;
+    }
     if ((findPiece(aPiece,aBoard).first != 8) || (findPiece(aPiece,aBoard).second != 0)){
         return true;
     }
@@ -27,6 +30,9 @@ bool PieceOnBoard(string aPiece, string aBoard[8][8]){
 }
 
 bool RightColor(string aPiece, int moveNb){
+    if (((moveNb % 2 == 0) && ((aPiece == "O-O")||(aPiece == "O-O-O")))||((moveNb % 2 == 1) && ((aPiece == "o-o")||(aPiece == "o-o-o")))){
+        return true;
+    }
     bool isRightColor = ((moveNb % 2 == 0) && aPiece[0] == 'w') || ((moveNb % 2 == 1) && aPiece[0] == 'b');
     return isRightColor;
 }
@@ -206,7 +212,7 @@ vector<pair<string, pair<int, int>>> sortLegal(vector<pair<string, pair<int, int
 }
 
 
-vector<pair<string, pair<int, int>>> LegalMoves(string aBoard[8][8], int moveNb){//, bool wC1, bool wC2, bool bC1, bool bC2){
+vector<pair<string, pair<int, int>>> LegalMoves(string aBoard[8][8], int moveNb, bool wC1 , bool wC2 , bool bC1, bool bC2){
 
     vector<pair<string, pair<int, int>>> legalMoves ;
     bool isWhiteTurn = (moveNb % 2 == 0) ;
@@ -263,7 +269,7 @@ vector<pair<string, pair<int, int>>> LegalMoves(string aBoard[8][8], int moveNb)
 
                 //King
                 if (currentPiece[1] == 'K'){
-                    legalKing(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy, moveNb);
+                    legalKing(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy, moveNb, wC1, wC2, bC1, bC2);
                 }
 
             }/*else{
@@ -286,7 +292,8 @@ vector<pair<string, pair<int, int>>> LegalMoves(string aBoard[8][8], int moveNb)
     //return legalMoves;
 }
 
-vector<pair<string, pair<int, int>>> unSortedLegalMoves(string aBoard[8][8], int moveNb){//, bool wC1, bool wC2, bool bC1, bool bC2){
+
+vector<pair<string, pair<int, int>>> unSortedLegalMoves(string aBoard[8][8], int moveNb, bool wC1, bool wC2, bool bC1, bool bC2){
 
     vector<pair<string, pair<int, int>>> legalMoves ;
     bool isWhiteTurn = (moveNb % 2 == 0) ;
@@ -343,25 +350,21 @@ vector<pair<string, pair<int, int>>> unSortedLegalMoves(string aBoard[8][8], int
 
                 //King
                 if (currentPiece[1] == 'K'){
-                    legalKing(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy, moveNb);
+                    legalKing(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy, moveNb, wC1, wC2, bC1, bC2);
                 }
 
-            }/*else{
-                cout << "Piece : **" << currentPiece << "not on board. Coord are  "
-            << locCurrentPiece.first << locCurrentPiece.second << endl;}*/
+            }
 
     k+=1 ;
     }
     //for k in range legal move if MoveChecksAllyKing
 
+    //for (k = 0 ; k< legalMoves.size() ; k++){
+      //  cout << legalMoves[k].first << legalMoves[k].second.first << legalMoves[k].second.second << endl;
+        //string nothing ;
+      //  cin >> nothing;
+    //}
 
-    /*
-    for (int k = 0 ; k < legalMoves.size() ; k++ ){
-        if (MoveChecksAllyKing(aBoard,moveNb,legalMoves[k].first,legalMoves[k].second)){
-            cout << "problematic move " << legalMoves[k].first << legalMoves[k].second.first << legalMoves[k].second.second << endl;
-            legalMoves.erase(legalMoves.begin()+k);
-        }
-    }*/
     //return sortLegal(legalMoves, aBoard);
     return legalMoves;
 }
@@ -439,7 +442,7 @@ vector<pair<string, pair<int, int>>> RawLegalMoves(string aBoard[8][8], int move
 
 
 
-bool IsLegal(string nextPiece, string nextDest, string aBoard[8][8], int moveNb){
+bool IsLegal(string nextPiece, string nextDest, string aBoard[8][8], int moveNb, bool wC1, bool wC2, bool bC1, bool bC2){
 
     if (!PieceOnBoard(nextPiece, aBoard)){
         cout << "Piece not on board" <<endl;
@@ -459,7 +462,7 @@ bool IsLegal(string nextPiece, string nextDest, string aBoard[8][8], int moveNb)
     movePlayed.second = indNextDest;
 
     vector<pair<string, pair<int, int>>> legalMoves ;
-    legalMoves = LegalMoves(aBoard, moveNb);
+    legalMoves = LegalMoves(aBoard, moveNb, wC1, wC2, bC1, bC2);
 
     bool found = false ;
     for (int i = 0 ; i < legalMoves.size() ; i++ ){

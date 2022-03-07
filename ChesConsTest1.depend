@@ -130,7 +130,7 @@
 	<string>
 	<iostream>
 
-1646327383 source:c:\users\balth\c++\chesconstest1\chess1\main.cpp
+1646684568 source:c:\users\balth\c++\chesconstest1\chess1\main.cpp
 	<iostream>
 	<string>
 	<coutBoard.h>
@@ -154,7 +154,7 @@
 1645706226 c:\users\balth\c++\chesconstest1\chess1\include\updateboard.h
 	<string>
 
-1646217555 c:\users\balth\c++\chesconstest1\chess1\include\legal.h
+1646430258 c:\users\balth\c++\chesconstest1\chess1\include\legal.h
 	<string>
 	<vector>
 
@@ -176,7 +176,7 @@
 	<string>
 	<vector>
 
-1645810336 source:c:\users\balth\c++\chesconstest1\chess1\src\check.cpp
+1646595442 source:c:\users\balth\c++\chesconstest1\chess1\src\check.cpp
 	"Check.h"
 	"legal.h"
 	"MoveInstructions.h"
@@ -196,14 +196,14 @@
 	<string>
 	<iostream>
 
-1646237572 source:c:\users\balth\c++\chesconstest1\chess1\src\kinglegal.cpp
+1646590904 source:c:\users\balth\c++\chesconstest1\chess1\src\kinglegal.cpp
 	"KingLegal.h"
 	"Check.h"
 	<string>
 	<vector>
 	<iostream>
 
-1645994667 c:\users\balth\c++\chesconstest1\chess1\include\kinglegal.h
+1646430006 c:\users\balth\c++\chesconstest1\chess1\include\kinglegal.h
 	<string>
 	<vector>
 
@@ -218,7 +218,7 @@
 	<string>
 	<vector>
 
-1646323888 source:c:\users\balth\c++\chesconstest1\chess1\src\legal.cpp
+1646570828 source:c:\users\balth\c++\chesconstest1\chess1\src\legal.cpp
 	"legal.h"
 	"MoveInstructions.h"
 	"Check.h"
@@ -262,13 +262,14 @@
 	<vector>
 	<iostream>
 
-1645996146 source:c:\users\balth\c++\chesconstest1\chess1\src\updateboard.cpp
+1646590950 source:c:\users\balth\c++\chesconstest1\chess1\src\updateboard.cpp
 	"UpdateBoard.h"
 	<string>
 	<cstring>
 	"MoveInstructions.h"
+	"iostream"
 
-1646328103 source:c:\users\balth\c++\chesconstest1\chess1\src\boardeval.cpp
+1646684609 source:c:\users\balth\c++\chesconstest1\chess1\src\boardeval.cpp
 	"boardEval.h"
 	"UpdateBoard.h"
 	"legal.h"
@@ -279,8 +280,9 @@
 	<cmath>
 	<coutBoard.h>
 	<Check.h>
+	<MoveInstructions.h>
 
-1646130116 c:\users\balth\c++\chesconstest1\chess1\include\boardeval.h
+1646430363 c:\users\balth\c++\chesconstest1\chess1\include\boardeval.h
 	<string>
 	<vector>
 

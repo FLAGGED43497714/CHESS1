@@ -9,6 +9,7 @@
 #include <cmath>
 #include <coutBoard.h>
 #include <Check.h>
+#include <MoveInstructions.h>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ const double PawnSqTbW[8][8] = {
     {10, 10, 20, 30, 30, 20, 10, 10},
     {5,  5, 10, 27, 27, 10,  5,  5},
     {0,  0,  0, 25, 25,  0,  0,  0},
-    {5, -5,-10,  0,  0,-10, -5,  5},
+    {5, 10, 10,  0,  0,-10, -5,  5},
     {5, 10, 10,-25,-25, 10, 10,  5},
     {0,  0,  0,  0,  0,  0,  0,  0}
     };
@@ -26,7 +27,7 @@ const double PawnSqTbW[8][8] = {
 const double PawnSqTbB[8][8] = {
     {0,  0,  0,  0,  0,  0,  0,  0},
     {5, 10, 10,-25,-25, 10, 10,  5},
-    {5, -5,-10,  0,  0,-10, -5,  5},
+    {5, 10, 10,  0,  0,-10, -5,  5},
     {0,  0,  0, 25, 25,  0,  0,  0},
     {5,  5, 10, 27, 27, 10,  5,  5},
     {10, 10, 20, 30, 30, 20, 10, 10},
@@ -74,7 +75,7 @@ const double BishopSqTbB[8][8] =
 {
     {-20,-10,-40,-10,-10,-40,-10,-20},
     {-10,  5,  0,  0,  0,  0,  5,-10},
-    {-10, 10, 10,  -20,  -20, 10, 10,-10},
+    {-10, 10, 10,-20,-20, 10, 10,-10},
     {-10,  0, 10, 10, 10, 10,  0,-10},
     {-10,  5,  5, 10, 10,  5,  5,-10},
     {-10,  0,  5, 10, 10,  5,  0,-10},
@@ -177,7 +178,7 @@ double evalMated(string aBoard[8][8],int moveNb){
 
     if (legalMovesPlayer.size() == 0){
         cout << "I see player in mate  !" << endl ;
-        sleep(1.5);
+        //sleep(1.5);
         if (isWhiteTurn){
             return -90000 ;
         } else {
@@ -186,6 +187,16 @@ double evalMated(string aBoard[8][8],int moveNb){
     }
     return 0 ;
 }
+
+double evalTurn(int moveNb){
+    if (moveNb % 2 == 0){
+        return 40 ;
+    }
+    else {
+        return 40 ;
+    }
+}
+
 
 double evalPieces(string aBoard[8][8])
 {
@@ -250,6 +261,87 @@ double evalPieces(string aBoard[8][8])
     return eval;
 }
 
+/*double evalPieces2(string aBoard[8][8])
+{
+    double eval1 = evalPieces(aBoard) / 100 ;
+    bool advWhite = true ;
+    if (eval1 < 0){
+        advWhite = false ;
+    }
+
+
+    double eval (0);
+    for(int i = 0 ; i < 8 ; i++)
+    {
+        for(int j = 0 ; j < 8 ; j++)
+        {
+            switch(aBoard[i][j][1])
+            {
+                case 'P' :
+                    if (aBoard[i][j][0] == 'w'){
+                        if (!advWhite){
+                            eval += 100*eval1 ;
+                        }
+                        else {
+                            eval += 100 ;
+                        }
+                    } else {
+                        if (!advWhite){
+                            eval += 100*eval1 ;
+                        }
+                        else {
+                            eval += 100 ;
+                        }
+                        eval -= 100 ;
+                    }
+                    break;
+
+                case 'N' :
+                    if (aBoard[i][j][0] == 'w'){
+                        eval += 300 ;
+                    } else {
+                        eval -= 300 ;
+                    }
+                    break;
+
+                case 'B' :
+                    if (aBoard[i][j][0] == 'w'){
+                        eval += 300 ;
+                    } else {
+                        eval -= 300 ;
+                    }
+                    break;
+
+                case 'R' :
+                    if (aBoard[i][j][0] == 'w'){
+                        eval += 500 ;
+                    } else {
+                        eval -= 500 ;
+                    }
+                    break;
+
+                case 'Q' :
+                    if (aBoard[i][j][0] == 'w'){
+                        eval += 900 ;
+                    } else {
+                        eval -= 900 ;
+                    }
+                    break;
+
+                case 'K' :
+                    if (aBoard[i][j][0] == 'w'){
+                        eval += 10000 ;
+                    } else {
+                        eval -= 10000 ;
+                    }
+                    break;
+            }
+        }
+    }
+
+    return eval;
+}*/
+
 double EvalSqPcTable(string aBoard[8][8], int moveNb){
     //cout << "exec EvalSqPcTable" << endl;
     //bool isWhiteTurn = (moveNb % 2 == 0) ;
@@ -308,13 +400,13 @@ double EvalSqPcTable(string aBoard[8][8], int moveNb){
     return eval ;
 }
 
-double evalMoveSz(string aBoard[8][8],int moveNb){
+double evalMoveSz(string aBoard[8][8],int moveNb, bool wC1, bool wC2, bool bC1, bool bC2){
     bool isWhiteTurn = (moveNb % 2 == 0) ;
 
     double weight = 1 ;
 
-    int moveSzThis = unSortedLegalMoves(aBoard, moveNb).size() ;
-    int moveSzNext = unSortedLegalMoves(aBoard, moveNb+1).size() ;
+    int moveSzThis = unSortedLegalMoves(aBoard, moveNb, wC1, wC2, bC1, bC2).size() ;
+    int moveSzNext = unSortedLegalMoves(aBoard, moveNb+1, wC1, wC2, bC1, bC2).size() ;
 
     if (isWhiteTurn){
         return ( moveSzThis - moveSzNext ) * weight ;
@@ -325,7 +417,7 @@ double evalMoveSz(string aBoard[8][8],int moveNb){
 }
 
 
-double eval(string aBoard[8][8],int moveNb)
+double eval(string aBoard[8][8],int moveNb, bool wC1, bool wC2, bool bC1, bool bC2)
 {
     double theEval (0);
 
@@ -340,16 +432,18 @@ double eval(string aBoard[8][8],int moveNb)
 
     theEval += evalMate ;
 
-    double theEvalMoveSz = evalMoveSz(aBoard,moveNb) ;
+    double theEvalMoveSz = evalMoveSz(aBoard,moveNb,wC1, wC2, bC1, bC2) ;
 
     theEval += theEvalMoveSz ;
+
+    //theEval += evalTurn(moveNb) ;
 
     theEval = floor(theEval);
 
     return theEval ;
 
 }
-
+/*
 pair<string, pair<int, int>> bestMove(vector<pair<string, pair<int, int>>> legalMoves,string aBoard[8][8],int moveNb){
     bool isWhiteTurn = (moveNb % 2 == 0) ;
     pair<string, pair<int, int>> bestMove ;
@@ -539,10 +633,7 @@ pair<int, double> subBestMove3(string aBoard[8][8],int moveNb, int maxIter, int 
         }
     }
 
-    /*cout << "evals = " << endl;
-    for (int k = 1 ; k < legalMovest0.size(); k++){
-        cout << evals[k] << endl;
-    }*/
+
 
 
 
@@ -668,10 +759,6 @@ pair<int, double> subBestMove4(string aBoard[8][8],int moveNb, int maxIter, int 
         }
     }
 
-    /*cout << "evals = " << endl;
-    for (int k = 1 ; k < legalMovest0.size(); k++){
-        cout << evals[k] << endl;
-    }*/
 
 
 
@@ -694,16 +781,14 @@ pair<int, double> subBestMove4(string aBoard[8][8],int moveNb, int maxIter, int 
 
 
     return bestMoveEval;
-}
+}*/
 
-pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, double alpha = -9000, double beta = 9000,
-                                int iter = 1, int veryMaxIter = 9){
+pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, bool wC1, bool wC2, bool bC1, bool bC2,
+                               int maxIter, double alpha = -9999, double beta = 9999, int iter = 1, int veryMaxIter = 5){
     //cout << "entering new layer with " << endl;
     //cout << "iter = " << iter << " max iter = " << maxIter << "moveNb = " << moveNb << endl ;
-    //system("cls");
-    //coutBoard(aBoard) ;
-    //string nothing ;
-    //cin >> nothing ;
+
+
     //cout << endl;
 
     bool isWhiteTurn = (moveNb % 2 == 0) ;
@@ -719,7 +804,7 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
     vector<pair<string, pair<int, int>>> legalMovest0 ;
 
     //coups légaux et leur éval
-    legalMovest0 = LegalMoves(aBoard,moveNb);
+    legalMovest0 = LegalMoves(aBoard, moveNb, wC1, wC2, bC2, bC2);
 
     pair<int,double> bestMoveEval ;
     int bestInd = 0 ;
@@ -737,7 +822,11 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
 
         // ATTENTION IL NE CONSIDERE PAS LES STALEMATES
 
-        bestEval = (2 * (moveNb % 2 == 0) - 1) * - 9000 ;
+        if (isWhiteTurn){
+            bestEval = -9000 ;
+        } else {
+            bestEval = 9000 ;
+        }
 
         bestMoveEval.first = bestInd ;
         bestMoveEval.second = bestEval ;
@@ -747,44 +836,107 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
     }
 
     bool incremented ;
+    bool isCastle ;
+
+    double evalRN ;
+
+    if (iter >= 2){ // on le fait avant de rentrer dans la boucle
+            evalRN = eval(aBoard,moveNb,wC1, wC2, bC1, bC2) ;
+    }
+
+    double thisEval ;
+
+
+
     for (int k = 0 ; k < legalMovest0.size() ; k++){
-            incremented = false ;
-        for (int i=0; i < 8 ; i++){
-            for (int j=0; j < 8 ; j++){
-                possibleBoard[i][j] = aBoard[i][j] ;
-            }
+
+        incremented = false ;
+
+
+        if ((legalMovest0[k].second.first == -1) && (legalMovest0[k].second.second == -1)){
+            isCastle = true ;
         }
         //new Board
+        string nothing ;
 
         string yourPiece = legalMovest0[k].first ;
-        string destSq = possibleBoard[legalMovest0[k].second.first][legalMovest0[k].second.second] ;
-
-        if (destSq[0] == colorEnnemy){
-            //cout << destSq ;
-            if ((getPieceValue(yourPiece[1]) > getPieceValue(destSq[1]))
-            && (iter == maxIter-1)
-            && (maxIter < veryMaxIter)){
-            incremented = true ;
-            maxIter+=1 ;
-            }
+        //cout << yourPiece ;
+        //cin >> nothing ;
+        //pair<int,int> whereItWas ;
+        //whereItWas = findPiece(yourPiece,aBoard) ;
+        string destSq  ;
+        if (!isCastle){
+            destSq = aBoard[legalMovest0[k].second.first][legalMovest0[k].second.second] ;
         }
 
 
 
-        updateBoard2(legalMovest0[k].first,legalMovest0[k].second.first,legalMovest0[k].second.second,possibleBoard);
 
-        if (IsCheck(possibleBoard,moveNb)
-            && (iter == maxIter-1)
-            && (maxIter < veryMaxIter)
-            &&(!incremented)){
-            incremented = true ;
-            maxIter+=1 ;
-        }
 
 
         //bestInd = subBestMove3(possibleBoard,moveNb+1, maxIter, iter+1) ;
-        if (iter == maxIter){
-            double thisEval = eval(possibleBoard,moveNb);
+
+        //middle of capture sequence
+        if (!isCastle){
+            if (destSq[0] == colorEnnemy){
+                //cout << destSq ;
+                if ((getPieceValue(yourPiece[1]) >= getPieceValue(destSq[1]))
+                && (iter == maxIter) //|| ((iter ==2)&&(iter == maxIter)))
+                && (maxIter < veryMaxIter)){
+                    //cout << "incrementing because take smaller" ;
+
+                    incremented = true ;
+                    maxIter+=1 ;
+                    //cout << "now iter = " << iter << " and maxIter = " << maxIter << endl;
+                    //cin >> nothing ;
+                }
+
+                //end of capture sequence
+                else
+                {
+                    if ((getPieceValue(yourPiece[1]) < getPieceValue(destSq[1]))
+                    && (iter == maxIter)) //|| ((iter ==2)&&(iter == maxIter)))
+                    {
+                        //cout << "incrementing because take smaller" ;
+                        for (int i=0; i < 8 ; i++){
+                            for (int j=0; j < 8 ; j++){
+                                possibleBoard[i][j] = aBoard[i][j] ;
+                            }
+                        }
+                        updateBoard2(yourPiece,legalMovest0[k].second.first,legalMovest0[k].second.second,possibleBoard);
+
+
+                        thisEval = eval(possibleBoard,moveNb,wC1, wC2, bC1, bC2) ;
+
+                        if (isBetter(thisEval,bestEval,moveNb)){
+                            bestEval = thisEval ;
+                            bestInd = k ;
+                        }
+                        if (isWhiteTurn){
+                            alpha = max(alpha,thisEval) ;
+                            if (beta <= alpha) {
+                                break ;
+                            }
+                        }
+                        if (!isWhiteTurn){
+                            beta = min(beta,thisEval);
+                        }
+
+                        //cout << "now iter = " << iter << " and maxIter = " << maxIter << endl;
+                        //cin >> nothing ;
+                    }
+
+                }
+            }
+        }
+
+
+
+
+        if ((iter >= 2) && (!incremented)){
+
+            thisEval = evalRN ;
+
             if (isBetter(thisEval,bestEval,moveNb)){
                 bestEval = thisEval ;
                 bestInd = k ;
@@ -796,18 +948,84 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
                 }
             }
             if (!isWhiteTurn){
+                beta = min(beta,thisEval);
+            }
+        }
+
+
+        for (int i=0; i < 8 ; i++){
+            for (int j=0; j < 8 ; j++){
+                possibleBoard[i][j] = aBoard[i][j] ;
+            }
+        }
+
+        updateBoard2(yourPiece,legalMovest0[k].second.first,legalMovest0[k].second.second,possibleBoard);
+
+
+        //system("cls");
+        if (IsCheck(possibleBoard,moveNb+1)
+            && (iter == maxIter)
+            && (maxIter < veryMaxIter)
+            &&(!incremented)){
+                //cout << "incrementing because check" ;
+                //cin >> nothing ;
+                incremented = true ;
+                maxIter+=1 ;
+        }
+
+
+        //coutBoard(possibleBoard) ;
+        //cout << "iter = " << iter << "; max Iter = " << maxIter << endl ;
+        //cout << yourPiece <<legalMovest0[k].second.first << legalMovest0[k].second.second << endl;
+
+        //cin >> nothing ;
+
+        /*if ((iter >  2) && (!incremented)){
+            bestMoveEval.first = bestInd ;
+            bestMoveEval.second = bestEval ;
+
+
+            return bestMoveEval;
+        }*/
+
+        if (iter == maxIter){
+            double thisEval = eval(possibleBoard,moveNb, wC1, wC2, bC1, bC2);
+            //cout << "maxIter = " << maxIter ;
+            //cout << "Eval is : " << thisEval << endl;
+            //cin >> nothing ;
+            if (isBetter(thisEval,bestEval,moveNb)){
+                bestEval = thisEval ;
+                bestInd = k ;
+            }
+            if (isWhiteTurn){
+                alpha = max(alpha,thisEval) ;
+                if (beta <= alpha) {
+                    //cout << "undoing " << yourPiece << whereItWas.first << whereItWas.second ;
+                    //updateBoard2(yourPiece,whereItWas.first, whereItWas.second,possibleBoard) ;
+                    //aBoard[legalMovest0[k].second.first][legalMovest0[k].second.second] = destSq ;
+                    //cin >> nothing ;
+                    break ;
+                }
+            }
+            if (!isWhiteTurn){
                 beta = min(beta,thisEval) ;
             }
 
         }
+
+
         if (iter < maxIter){
             //cout << "iter = " << iter << " max iter = " << maxIter << "moveNb = " << moveNb << endl ;
             int newMoveNb = moveNb+1 ;
             int newIter = iter +1 ;
 
             //cout << "subBestMove3 " << "with " << "newMoveNb = " << newMoveNb << "and newIter = " << newIter << endl;
+            //cout << "your piece : " << yourPiece ;
 
-            pair<int, double> resSubBestMove3 = subBestMove5(possibleBoard, newMoveNb, maxIter, alpha, beta, newIter) ;
+
+            pair<int, double> resSubBestMove3 = subBestMove5(possibleBoard, newMoveNb, wC1, wC2, bC2, bC2, maxIter, alpha, beta, newIter) ;
+
+            //cout << "your piece : " << yourPiece ;
 
             double thisEval = resSubBestMove3.second ;
 
@@ -824,7 +1042,12 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
             if (!isWhiteTurn){
                 beta = min(beta,thisEval);
             }
+
         }
+        //cout << "undoing " << yourPiece << whereItWas.first << whereItWas.second ;
+        //updateBoard2(yourPiece,whereItWas.first, whereItWas.second,aBoard) ;
+        //aBoard[legalMovest0[k].second.first][legalMovest0[k].second.second] = destSq ;
+        //cin >> nothing ;
 
         if (incremented){
             maxIter-=1 ;
@@ -842,7 +1065,7 @@ pair<int, double> subBestMove5(string aBoard[8][8],int moveNb, int maxIter, doub
     return bestMoveEval;
 }
 
-
+/*
 pair<string, pair<int, int>> bestMove3(string aBoard[8][8],int moveNb,int maxIter){
 
     vector<pair<string, pair<int, int>>> legalMovest0 ;
@@ -879,9 +1102,11 @@ pair<string, pair<int, int>> bestMove4(string aBoard[8][8],int moveNb,int maxIte
 
     return legalMovest0[bestInd];
 
-}
+}*/
 
-pair<string, pair<int, int>> bestMove5(string aBoard[8][8],int moveNb,int maxIter){
+pair<string, pair<int, int>> bestMove5(string aBoard[8][8],int moveNb,bool wC1, bool wC2, bool bC1, bool bC2, int maxIter){
+
+    // /!\ hardcodé pour une profodeur max de 2
 
 
     if (moveNb == 0) {
@@ -894,9 +1119,9 @@ pair<string, pair<int, int>> bestMove5(string aBoard[8][8],int moveNb,int maxIte
     }
 
     vector<pair<string, pair<int, int>>> legalMovest0 ;
-    legalMovest0 = LegalMoves(aBoard,moveNb) ;
+    legalMovest0 = LegalMoves(aBoard,moveNb, wC1, wC2, bC2, bC2) ;
 
-    pair<int, double> resSubBestMove = subBestMove5(aBoard, moveNb, maxIter) ;
+    pair<int, double> resSubBestMove = subBestMove5(aBoard, moveNb, wC1, wC2, bC2, bC2, maxIter) ;
 
     int bestInd = resSubBestMove.first ;
 

@@ -37,6 +37,9 @@ bool IsCheck(string aBoard[8][8], int moveNb){
         if ((legalOppMoves[i].second.first == allyKingCoord.first)
         &&(legalOppMoves[i].second.second == allyKingCoord.second))
         {
+            //cout << "ally king is " << allyKing << " it is on " << allyKingCoord.first << allyKingCoord.second ;
+            //cout << "checked by "<< legalOppMoves[i].first << endl;
+            //sleep(3);
             isCheck = true;
         }
     }
