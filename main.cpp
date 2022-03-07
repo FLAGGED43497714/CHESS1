@@ -38,7 +38,8 @@ int main()
     //string fen = "r2qkbnr/ppp2ppp/2n1p3/3p1b2/2BP4/4P3/PPPB1PPP/RN1QK1NR" ;
     //string fen = "r4r2/ppp2pk1/8/8/P3q3/1P3nPP/2p2bR1/7K" ;
     //string fen = "r1bqkb1r/ppp1nppp/8/1B1P3Q/3n4/8/PPPP1PPP/RNB1K1NR" ;
-    //string fen = "r1bqkbnr/pppp1ppp/8/4n3/4P3/8/PPP2PPP/RNBQKBNR";
+    //string fen = "rnbqk1nr/pppp1ppp/8/2b1p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR";
+    //string fen = "r1b1k2r/pppp1ppp/2n5/1B2b1q1/8/5N2/P1PBQPPP/R3K2R";
 
     string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
 
