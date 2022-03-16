@@ -19,7 +19,7 @@ void legalPawn(string currentPiece,pair<int,int> locCurrentPiece,
 
     if (colorAlly == 'w') {
         //advance 1
-        if((locTMP.first -1 >= 0 )
+        if((locTMP.first -1 >= 0 ) // >= 1 parce qu'après c'est les promotions
         && (aBoard[locTMP.first-1][locTMP.second][0] == '*'))
         {
             //new loc
@@ -35,6 +35,9 @@ void legalPawn(string currentPiece,pair<int,int> locCurrentPiece,
                 legalMoves.push_back(newLegalMove);
             }
         }
+
+
+
 
         //advance 2
         locTMP.first = locCurrentPiece.first ;

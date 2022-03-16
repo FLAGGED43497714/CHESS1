@@ -130,7 +130,7 @@
 	<string>
 	<iostream>
 
-1646693470 source:c:\users\balth\c++\chesconstest1\chess1\main.cpp
+1647378679 source:c:\users\balth\c++\chesconstest1\chess1\main.cpp
 	<iostream>
 	<string>
 	<coutBoard.h>
@@ -158,9 +158,10 @@
 	<string>
 	<vector>
 
-1645782611 c:\users\balth\c++\chesconstest1\chess1\include\check.h
+1646994119 c:\users\balth\c++\chesconstest1\chess1\include\check.h
 	<string>
 	<iostream>
+	<vector>
 
 1645561508 c:\users\balth\c++\chesconstest1\chess1\include\moveinstructions.h
 	<string>
@@ -176,7 +177,7 @@
 	<string>
 	<vector>
 
-1646595442 source:c:\users\balth\c++\chesconstest1\chess1\src\check.cpp
+1646994029 source:c:\users\balth\c++\chesconstest1\chess1\src\check.cpp
 	"Check.h"
 	"legal.h"
 	"MoveInstructions.h"
@@ -196,12 +197,14 @@
 	<string>
 	<iostream>
 
-1646590904 source:c:\users\balth\c++\chesconstest1\chess1\src\kinglegal.cpp
+1646750553 source:c:\users\balth\c++\chesconstest1\chess1\src\kinglegal.cpp
 	"KingLegal.h"
 	"Check.h"
+	"UpdateBoard.h"
 	<string>
 	<vector>
 	<iostream>
+	<unistd.h>
 
 1646430006 c:\users\balth\c++\chesconstest1\chess1\include\kinglegal.h
 	<string>
@@ -218,7 +221,7 @@
 	<string>
 	<vector>
 
-1646570828 source:c:\users\balth\c++\chesconstest1\chess1\src\legal.cpp
+1646990555 source:c:\users\balth\c++\chesconstest1\chess1\src\legal.cpp
 	"legal.h"
 	"MoveInstructions.h"
 	"Check.h"
@@ -247,7 +250,7 @@
 	"MoveInstructions.h"
 	<string>
 
-1646077468 source:c:\users\balth\c++\chesconstest1\chess1\src\pawnlegal.cpp
+1646780795 source:c:\users\balth\c++\chesconstest1\chess1\src\pawnlegal.cpp
 	"PawnLegal.h"
 	"Check.h"
 	<string>
@@ -262,14 +265,16 @@
 	<vector>
 	<iostream>
 
-1646590950 source:c:\users\balth\c++\chesconstest1\chess1\src\updateboard.cpp
+1646991556 source:c:\users\balth\c++\chesconstest1\chess1\src\updateboard.cpp
 	"UpdateBoard.h"
 	<string>
 	<cstring>
+	<cstdlib>
 	"MoveInstructions.h"
 	"iostream"
+	"unistd.h"
 
-1646693604 source:c:\users\balth\c++\chesconstest1\chess1\src\boardeval.cpp
+1647353491 source:c:\users\balth\c++\chesconstest1\chess1\src\boardeval.cpp
 	"boardEval.h"
 	"UpdateBoard.h"
 	"legal.h"

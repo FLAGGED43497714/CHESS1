@@ -27,19 +27,14 @@ using namespace std;
 int main()
 {
     bool whiteHuman (false);
-    bool blackHuman = 1 - whiteHuman;
+    bool blackHuman = false ;//1 - whiteHuman;
 
     int moveNb = 0 ;
     string board[8][8] ;
 
-    //string fen = "r2qk2r/ppp2pRp/5n2/2b5/2p1P3/N1P2P1b/PP3P1P/R1B1K3" ;
-    //string fen = "rnb2rk1/pppp1ppp/5q2/1B2p3/1b2P3/2NP1N2/PPP2PPP/R2QK2R" ;
-    //string fen = "rnbqk1nr/ppp1bppp/8/3pp3/8/2P5/PN1PPPPP/R1BQKBNR";
-    //string fen = "r2qkbnr/ppp2ppp/2n1p3/3p1b2/2BP4/4P3/PPPB1PPP/RN1QK1NR" ;
-    //string fen = "r4r2/ppp2pk1/8/8/P3q3/1P3nPP/2p2bR1/7K" ;
-    //string fen = "r1bqkb1r/ppp1nppp/8/1B1P3Q/3n4/8/PPPP1PPP/RNB1K1NR" ;
-    //string fen = "rnbqk1nr/pppp1ppp/8/2b1p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR";
-    //string fen = "r1b1k2r/pppp1ppp/2n5/1B2b1q1/8/5N2/P1PBQPPP/R3K2R";
+    //string fen = "r4r2/ppp2pk1/8/8/P3q3/1P3nPP/2p2bR1/7K" ; //mat en 3 avec échec sur le 1e move
+    //string fen = "8/1P4k1/8/8/8/4K3/8/8" ; //promotion
+    //string fen = "3k4/2R5/3P1N2/B7/8/p6P/PP3PP1/6KR" ; //stalemates
 
     string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
 
@@ -78,7 +73,7 @@ int main()
             system("cls");
             coutBoard(board);
 
-            double boardEval = eval(board,moveNb, wC1, wC2, bC1, bC2);
+            double boardEval = eval(board,moveNb-1, wC1, wC2, bC1, bC2);
             cout << "eval t0 : " << boardEval/100 << endl;
 
             //turn
@@ -89,7 +84,7 @@ int main()
 
                 if(!whiteHuman){
                 //auto start = high_resolution_clock::now();
-                theBestMove = bestMove5(board,moveNb,wC1, wC2, bC1, bC2,2);
+                theBestMove = bestMove5(board,moveNb,wC1, wC2, bC1, bC2,3);
                 //auto stop = high_resolution_clock::now();
                 //auto duration = duration_cast<milliseconds>(stop - start);
                 //cout << duration.count() << endl;
@@ -144,7 +139,7 @@ int main()
 
                 if (!blackHuman){
                 //auto start = high_resolution_clock::now();
-                theBestMove = bestMove5(board, moveNb, wC1, wC2, bC1, bC2, 2);
+                theBestMove = bestMove5(board, moveNb, wC1, wC2, bC1, bC2, 3);
                 //auto stop = high_resolution_clock::now();
                 //auto duration = duration_cast<milliseconds>(stop - start);
                 //cout << duration.count() << endl;

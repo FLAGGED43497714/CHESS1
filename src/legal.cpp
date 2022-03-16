@@ -216,30 +216,36 @@ vector<pair<string, pair<int, int>>> LegalMoves(string aBoard[8][8], int moveNb,
 
     vector<pair<string, pair<int, int>>> legalMoves ;
     bool isWhiteTurn = (moveNb % 2 == 0) ;
-    string pieces[32] = {"wP1","wP2","wP3","wP4","wP5","wP6","wP7","wP8",
-                         "wR1","wN1","wB1","wK","wQ","wB2","wN2","wR2",
+    /*string pieces[34] = {"wP1","wP2","wP3","wP4","wP5","wP6","wP7","wP8",
+                         "wR1","wN1","wB1","wK","wQ","wQ1","wB2","wN2","wR2",
                          "bP1","bP2","bP3","bP4","bP5","bP6","bP7","bP8",
-                         "bR1","bN1","bB1","bK","bQ","bB2","bN2","bR2"};
+                         "bR1","bN1","bB1","bK","bQ","bQ1","bB2","bN2","bR2"};*/
 
     //cout << "Pieces analysed to see all legal moves :" << endl;
     char colorAlly = 'w';
     char colorEnnemy = 'b';
-    int k = 0;
-    for(int i = 0; i < 16 ; i++){
-        if ((!isWhiteTurn) && (i == 0)){
-            k+=16;
+    //int k = 0;
+
+    if (!isWhiteTurn){
             colorAlly = 'b';
             colorEnnemy = 'w';
-        }
-        string currentPiece = pieces[k];
-        pair<int,int> locCurrentPiece ;
-        locCurrentPiece = findPiece(currentPiece,aBoard);
+    }
+    for (int indLine = 0 ; indLine < 8 ; indLine++){
+        for (int indCol = 0 ; indCol < 8 ; indCol++){
+            string currentPiece = aBoard[indLine][indCol];
 
-        if (!((locCurrentPiece.first == 8) && (locCurrentPiece.second == 0)))
+            if (currentPiece[0] != colorAlly){
+                continue ;
+            }
+
+            pair<int,int> locCurrentPiece ;
+            locCurrentPiece.first = indLine;
+            locCurrentPiece.second = indCol;
+
+
+
+            if (!((locCurrentPiece.first == 8) && (locCurrentPiece.second == 0)))
             {
-
-                //cout << currentPiece;
-
                 //Rooks
                 if (currentPiece[1] == 'R'){
                     legalRook(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy, moveNb);
@@ -271,56 +277,48 @@ vector<pair<string, pair<int, int>>> LegalMoves(string aBoard[8][8], int moveNb,
                 if (currentPiece[1] == 'K'){
                     legalKing(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy, moveNb, wC1, wC2, bC1, bC2);
                 }
-
-            }/*else{
-                cout << "Piece : **" << currentPiece << "not on board. Coord are  "
-            << locCurrentPiece.first << locCurrentPiece.second << endl;}*/
-
-    k+=1 ;
-    }
-    //for k in range legal move if MoveChecksAllyKing
-
-
-    /*
-    for (int k = 0 ; k < legalMoves.size() ; k++ ){
-        if (MoveChecksAllyKing(aBoard,moveNb,legalMoves[k].first,legalMoves[k].second)){
-            cout << "problematic move " << legalMoves[k].first << legalMoves[k].second.first << legalMoves[k].second.second << endl;
-            legalMoves.erase(legalMoves.begin()+k);
+            }
         }
-    }*/
+    }
+
     return sortLegal(legalMoves, aBoard);
     //return legalMoves;
 }
 
 
 vector<pair<string, pair<int, int>>> unSortedLegalMoves(string aBoard[8][8], int moveNb, bool wC1, bool wC2, bool bC1, bool bC2){
-
     vector<pair<string, pair<int, int>>> legalMoves ;
     bool isWhiteTurn = (moveNb % 2 == 0) ;
-    string pieces[32] = {"wP1","wP2","wP3","wP4","wP5","wP6","wP7","wP8",
-                         "wR1","wN1","wB1","wK","wQ","wB2","wN2","wR2",
+    /*string pieces[34] = {"wP1","wP2","wP3","wP4","wP5","wP6","wP7","wP8",
+                         "wR1","wN1","wB1","wK","wQ","wQ1","wB2","wN2","wR2",
                          "bP1","bP2","bP3","bP4","bP5","bP6","bP7","bP8",
-                         "bR1","bN1","bB1","bK","bQ","bB2","bN2","bR2"};
+                         "bR1","bN1","bB1","bK","bQ","bQ1","bB2","bN2","bR2"};*/
 
     //cout << "Pieces analysed to see all legal moves :" << endl;
     char colorAlly = 'w';
     char colorEnnemy = 'b';
-    int k = 0;
-    for(int i = 0; i < 16 ; i++){
-        if ((!isWhiteTurn) && (i == 0)){
-            k+=16;
+    //int k = 0;
+
+    if (!isWhiteTurn){
             colorAlly = 'b';
             colorEnnemy = 'w';
-        }
-        string currentPiece = pieces[k];
-        pair<int,int> locCurrentPiece ;
-        locCurrentPiece = findPiece(currentPiece,aBoard);
+    }
+    for (int indLine = 0 ; indLine < 8 ; indLine++){
+        for (int indCol = 0 ; indCol < 8 ; indCol++){
+            string currentPiece = aBoard[indLine][indCol];
 
-        if (!((locCurrentPiece.first == 8) && (locCurrentPiece.second == 0)))
+            if (currentPiece[0] != colorAlly){
+                continue ;
+            }
+
+            pair<int,int> locCurrentPiece ;
+            locCurrentPiece.first = indLine;
+            locCurrentPiece.second = indCol;
+
+
+
+            if (!((locCurrentPiece.first == 8) && (locCurrentPiece.second == 0)))
             {
-
-                //cout << currentPiece;
-
                 //Rooks
                 if (currentPiece[1] == 'R'){
                     legalRook(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy, moveNb);
@@ -352,52 +350,47 @@ vector<pair<string, pair<int, int>>> unSortedLegalMoves(string aBoard[8][8], int
                 if (currentPiece[1] == 'K'){
                     legalKing(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy, moveNb, wC1, wC2, bC1, bC2);
                 }
-
             }
-
-    k+=1 ;
+        }
     }
-    //for k in range legal move if MoveChecksAllyKing
 
-    //for (k = 0 ; k< legalMoves.size() ; k++){
-      //  cout << legalMoves[k].first << legalMoves[k].second.first << legalMoves[k].second.second << endl;
-        //string nothing ;
-      //  cin >> nothing;
-    //}
-
-    //return sortLegal(legalMoves, aBoard);
     return legalMoves;
 }
 
 
 vector<pair<string, pair<int, int>>> RawLegalMoves(string aBoard[8][8], int moveNb){
-
     vector<pair<string, pair<int, int>>> legalMoves ;
     bool isWhiteTurn = (moveNb % 2 == 0) ;
-    string pieces[32] = {"wP0","wP1","wP2","wP3","wP4","wP5","wP6","wP7",
-                         "wR1","wN1","wB1","wK","wQ","wB2","wN2","wR2",
-                         "bP0","bP1","bP2","bP3","bP4","bP5","bP6","bP7",
-                         "bR1","bN1","bB1","bK","bQ","bB2","bN2","bR2"};
+    /*string pieces[34] = {"wP1","wP2","wP3","wP4","wP5","wP6","wP7","wP8",
+                         "wR1","wN1","wB1","wK","wQ","wQ1","wB2","wN2","wR2",
+                         "bP1","bP2","bP3","bP4","bP5","bP6","bP7","bP8",
+                         "bR1","bN1","bB1","bK","bQ","bQ1","bB2","bN2","bR2"};*/
 
     //cout << "Pieces analysed to see all legal moves :" << endl;
     char colorAlly = 'w';
     char colorEnnemy = 'b';
-    int k = 0;
-    for(int i = 0; i < 16 ; i++){
-        if ((!isWhiteTurn) && (i == 0)){
-            k+=16;
+    //int k = 0;
+
+    if (!isWhiteTurn){
             colorAlly = 'b';
             colorEnnemy = 'w';
-        }
-        string currentPiece = pieces[k];
-        pair<int,int> locCurrentPiece ;
-        locCurrentPiece = findPiece(currentPiece,aBoard);
+    }
+    for (int indLine = 0 ; indLine < 8 ; indLine++){
+        for (int indCol = 0 ; indCol < 8 ; indCol++){
+            string currentPiece = aBoard[indLine][indCol];
 
-        if (!((locCurrentPiece.first == 8) && (locCurrentPiece.second == 0)))
+            if (currentPiece[0] != colorAlly){
+                continue ;
+            }
+
+            pair<int,int> locCurrentPiece ;
+            locCurrentPiece.first = indLine;
+            locCurrentPiece.second = indCol;
+
+
+
+            if (!((locCurrentPiece.first == 8) && (locCurrentPiece.second == 0)))
             {
-
-                //cout << currentPiece;
-
                 //Rooks
                 if (currentPiece[1] == 'R'){
                     legalRook2(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy);
@@ -428,15 +421,12 @@ vector<pair<string, pair<int, int>>> RawLegalMoves(string aBoard[8][8], int move
                 if (currentPiece[1] == 'K'){
                     legalKing2(currentPiece,locCurrentPiece, legalMoves, aBoard, colorAlly, colorEnnemy);
                 }
-
             }
-
-    k+=1 ;
+        }
     }
 
     return legalMoves;
 }
-
 
 
 
